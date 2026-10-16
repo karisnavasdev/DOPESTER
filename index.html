@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doge Pepe Roadster — $DOPESTER</title>
+  <meta name="description" content="Doge Pepe Roadster ($DOPESTER) is the most wanted ride on Solana. Contract: dogesoon." />
+  <meta name="theme-color" content="#07080c" />
+  <meta property="og:title" content="Doge Pepe Roadster — $DOPESTER" />
+  <meta property="og:description" content="Two legends. One flying roadster. The most wanted memecoin on Solana." />
+  <meta property="og:image" content="banner.png" />
+  <link rel="icon" href="logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@1,700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07080c;
+      --bg-2: #10131b;
+      --panel: rgba(10, 12, 18, 0.78);
+      --line: rgba(255, 214, 120, 0.28);
+      --gold: #ffd24a;
+      --gold-2: #ff9a1f;
+      --green: #b6ff4a;
+      --mint: #39d353;
+      --cyan: #3de0ff;
+      --red: #ff2d3a;
+      --blue: #3a7bff;
+      --ink: #f4f1e8;
+      --muted: #b7b1a4;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --font-d: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+      --font-b: "Rajdhani", "Segoe UI", sans-serif;
+      --font-w: "Playfair Display", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font-b);
+      background:
+        radial-gradient(1000px 420px at 80% -10%, rgba(255, 120, 40, 0.2), transparent 60%),
+        radial-gradient(800px 380px at 0% 0%, rgba(61, 224, 255, 0.08), transparent 55%),
+        var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { background: var(--gold); color: #1a1203; }
+
+    .scan {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.035) 0 1px,
+        transparent 1px 3px
+      );
+      mix-blend-mode: overlay;
+      opacity: 0.25;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(600px 280px at 50% 40%, rgba(255, 140, 40, 0.18), transparent 70%),
+        #05060a;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader.hide { opacity: 0; visibility: hidden; }
+    .loader-card { width: min(520px, 88vw); text-align: center; }
+    .loader-card img {
+      width: 148px;
+      height: 148px;
+      object-fit: cover;
+      margin: 0 auto 18px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.45), 0 0 40px rgba(61, 224, 255, 0.35);
+      animation: float 2.8s ease-in-out infinite;
+    }
+    .loader-kicker {
+      letter-spacing: 0.42em;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .loader h1 {
+      font-family: var(--font-d);
+      font-size: clamp(42px, 8vw, 68px);
+      line-height: 0.9;
+      margin: 0 0 8px;
+      font-weight: 400;
+    }
+    .loader h1 span { color: var(--green); }
+    .loader p { margin: 0 0 18px; color: var(--muted); letter-spacing: 0.18em; font-size: 13px; }
+    .bar {
+      height: 8px;
+      background: #1b1e27;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--gold-2), var(--gold), var(--green));
+      box-shadow: 0 0 16px rgba(182, 255, 74, 0.7);
+    }
+    .loader-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 10px 22px;
+      background: linear-gradient(180deg, rgba(5, 6, 10, 0.92), rgba(5, 6, 10, 0.72));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      min-width: max-content;
+    }
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+    .brand strong {
+      font-family: var(--font-d);
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+    .brand strong em { font-style: normal; color: var(--green); }
+    nav { display: flex; gap: 6px; margin-left: 8px; }
+    nav a {
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      font-size: 14px;
+      padding: 8px 12px;
+      color: var(--muted);
+    }
+    nav a:hover, nav a:focus-visible { color: #1a1203; background: var(--gold); outline: none; }
+    .hud-right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .stars { display: flex; gap: 4px; background: transparent; border: 0; padding: 0; cursor: pointer; }
+    .stars svg { width: 18px; height: 18px; fill: #2a2e3a; filter: drop-shadow(0 1px 0 #000); transition: fill 0.3s ease; }
+    .stars svg.on { fill: var(--gold); }
+    .score {
+      font-family: var(--font-d);
+      letter-spacing: 1px;
+      font-size: 22px;
+      color: var(--green);
+      min-width: 108px;
+      text-align: right;
+    }
+    .score small { display: block; font-family: var(--font-b); font-size: 10px; letter-spacing: 0.22em; color: var(--muted); }
+    .xbtn {
+      text-decoration: none;
+      background: #fff;
+      color: #111;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 8px 12px;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+    .xbtn:hover { background: var(--gold); }
+    .menu-btn {
+      display: none;
+      margin-left: auto;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      font-family: var(--font-d);
+      letter-spacing: 2px;
+      font-size: 20px;
+      padding: 6px 12px;
+    }
+
+    .splash {
+      position: relative;
+      min-height: 78vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 28px 16px 90px;
+    }
+    .splash-blur {
+      position: absolute;
+      inset: -30px;
+      width: calc(100% + 60px);
+      height: calc(100% + 60px);
+      object-fit: cover;
+      filter: blur(22px) saturate(1.25) brightness(0.55);
+    }
+    .splash-main {
+      position: relative;
+      width: min(1180px, 96vw);
+      border: 2px solid rgba(255, 210, 74, 0.45);
+      box-shadow: var(--shadow), 0 0 80px rgba(61, 224, 255, 0.15);
+      animation: ken 16s ease-in-out infinite alternate;
+    }
+    .ribbon {
+      position: absolute;
+      top: 22px;
+      left: -36px;
+      z-index: 3;
+      background: var(--red);
+      color: white;
+      font-family: var(--font-d);
+      letter-spacing: 3px;
+      font-size: 22px;
+      padding: 8px 48px;
+      transform: rotate(-18deg);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    .portrait {
+      position: absolute;
+      right: max(18px, calc(50% - 560px));
+      bottom: 18px;
+      z-index: 4;
+      width: 210px;
+      animation: float 3.4s ease-in-out infinite;
+    }
+    .portrait img {
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(61, 224, 255, 0.35);
+    }
+    .thrusters {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 18px;
+      height: 28px;
+    }
+    .thrusters i {
+      width: 14px;
+      height: 26px;
+      background: linear-gradient(to bottom, #e8fbff, var(--cyan), transparent);
+      filter: blur(0.4px);
+      animation: flame 0.18s steps(2) infinite;
+      border-radius: 0 0 8px 8px;
+    }
+    .thrusters i:nth-child(2) { animation-delay: 0.05s; height: 34px; }
+    .thrusters i:nth-child(3) { animation-delay: 0.09s; }
+    .pname {
+      margin-top: 6px;
+      text-align: center;
+      font-family: var(--font-d);
+      letter-spacing: 2px;
+      font-size: 18px;
+      text-shadow: 0 2px 0 #000;
+    }
+    .pname span { color: var(--cyan); }
+
+    .ticker {
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0c0e14;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-block;
+      padding: 10px 0;
+      animation: tick 22s linear infinite;
+      font-family: var(--font-d);
+      letter-spacing: 3px;
+      font-size: 22px;
+    }
+    .ticker b { color: var(--gold); font-weight: 400; }
+    .ticker em { color: var(--green); font-style: normal; }
+
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    section { padding: 72px 0; }
+    .sec-label {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--gold-2), var(--gold));
+      color: #1a1203;
+      font-family: var(--font-d);
+      letter-spacing: 3px;
+      font-size: 22px;
+      padding: 4px 22px 2px 12px;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+    }
+    .sec-head { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 22px; }
+    .sec-head h2 {
+      margin: 0;
+      font-family: var(--font-d);
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 58px);
+      letter-spacing: 1px;
+      line-height: 0.9;
+    }
+    .sec-head p { margin: 0 0 6px; color: var(--muted); max-width: 460px; }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      position: relative;
+    }
+    .panel:before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(255, 210, 74, 0.16);
+      pointer-events: none;
+    }
+    .kicker { letter-spacing: 0.32em; color: var(--gold); font-size: 12px; font-weight: 700; }
+    .lede {
+      font-family: var(--font-d);
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 0.88;
+      margin: 8px 0 12px;
+      font-weight: 400;
+    }
+    .lede span {
+      background: linear-gradient(180deg, #fff1a8 10%, #ffb703 45%, #b6ff4a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .copy { color: #ddd6c8; font-size: 18px; line-height: 1.45; margin: 0 0 18px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-d);
+      letter-spacing: 1.5px;
+      font-size: 22px;
+      padding: 10px 16px 8px;
+      color: #14100a;
+      background: linear-gradient(180deg, #ffe28a, #f0a322);
+      clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    }
+    .btn.alt {
+      background: transparent;
+      color: var(--ink);
+      box-shadow: inset 0 0 0 2px var(--gold);
+    }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn:focus-visible, .menu-btn:focus-visible, .stars:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+    .ca {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #07080d;
+      border: 1px dashed rgba(182, 255, 74, 0.45);
+      padding: 10px 12px;
+    }
+    .ca span { color: var(--muted); letter-spacing: 0.18em; font-size: 12px; }
+    .ca strong {
+      font-family: var(--font-d);
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--green);
+      font-weight: 400;
+    }
+    .mini-copy {
+      margin-left: auto;
+      background: var(--green);
+      color: #062006;
+      border: 0;
+      font-family: var(--font-d);
+      letter-spacing: 1px;
+      font-size: 18px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .dossier { display: grid; gap: 8px; align-content: center; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 7px 0;
+      font-size: 16px;
+    }
+    .row em { color: var(--muted); font-style: normal; letter-spacing: 0.14em; font-size: 12px; }
+    .row b { font-weight: 700; }
+
+    .mission-layout {
+      display: grid;
+      grid-template-columns: 1.35fr 0.75fr;
+      gap: 16px;
+      min-height: 520px;
+    }
+    .stage {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      min-height: 520px;
+    }
+    .stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 0.45s ease, transform 0.8s ease;
+    }
+    .stage img.show { opacity: 1; transform: scale(1); }
+    .stage-shade {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 48%;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.88));
+    }
+    .stage-copy { position: absolute; left: 18px; right: 18px; bottom: 16px; }
+    .code {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      padding: 3px 8px;
+    }
+    .stage-copy h3 {
+      margin: 8px 0 4px;
+      font-family: var(--font-d);
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+    .stage-copy p { margin: 0; max-width: 460px; color: #efe8da; }
+    .siren {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      box-shadow: inset 0 0 80px rgba(255, 40, 40, 0.0);
+    }
+    .stage.chase .siren { animation: siren 0.45s linear infinite; opacity: 1; }
+    .bills { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; }
+    .stage.payday .bills { opacity: 1; }
+    .bill {
+      position: absolute;
+      top: -30px;
+      width: 22px;
+      height: 12px;
+      background: linear-gradient(180deg, #d8ff9a, #39d353);
+      animation: fall 3.4s linear infinite;
+      border-radius: 2px;
+    }
+
+    .mlist { display: flex; flex-direction: column; gap: 8px; }
+    .mbtn {
+      text-align: left;
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 10px;
+      padding: 8px;
+      background: rgba(16, 19, 27, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: inherit;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .mbtn img { width: 74px; height: 64px; object-fit: cover; }
+    .mbtn small { color: var(--gold); letter-spacing: 0.16em; font-size: 11px; }
+    .mbtn strong { display: block; font-family: var(--font-d); font-size: 24px; font-weight: 400; letter-spacing: 1px; }
+    .mbtn.active, .mbtn:hover { border-color: var(--gold); background: rgba(255, 168, 40, 0.1); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+    .stats-photo {
+      border: 3px solid var(--gold);
+      box-shadow: var(--shadow);
+    }
+    .meter { margin: 0 0 12px; }
+    .meter div { display: flex; justify-content: space-between; font-weight: 700; letter-spacing: 0.08em; }
+    .track { height: 10px; background: #1a1e28; margin-top: 4px; }
+    .track span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--gold-2), var(--green));
+      box-shadow: 0 0 12px rgba(182, 255, 74, 0.45);
+    }
+    .track.low span { background: linear-gradient(90deg, var(--red), #ff7a18); }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .step {
+      background: rgba(12, 14, 20, 0.9);
+      border-top: 3px solid var(--gold);
+      padding: 16px;
+      min-height: 180px;
+      transform: skewX(-6deg);
+    }
+    .step > * { transform: skewX(6deg); }
+    .step .n {
+      font-family: var(--font-d);
+      font-size: 42px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .step h3 { margin: 4px 0; font-family: var(--font-d); font-weight: 400; letter-spacing: 1px; font-size: 28px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .strip { overflow: hidden; border-block: 1px solid rgba(255, 255, 255, 0.08); background: #05060a; }
+    .strip-track { display: flex; gap: 10px; width: max-content; padding: 12px 0; animation: reel 36s linear infinite; }
+    .strip:hover .strip-track { animation-play-state: paused; }
+    .strip button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    .strip img { height: 180px; width: 140px; object-fit: cover; filter: saturate(1.1); }
+    .strip img:hover { outline: 2px solid var(--gold); }
+
+    .radio {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 0 0;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+      font-size: 13px;
+    }
+    .boost {
+      font-family: var(--font-d);
+      font-size: 42px;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      text-shadow: 0 0 18px rgba(61, 224, 255, 0.45);
+    }
+    .boost small { font-size: 14px; color: var(--muted); margin-left: 4px; }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px 0 40px;
+      color: var(--muted);
+    }
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+    .foot img { width: 64px; height: 64px; object-fit: cover; border: 2px solid var(--gold); }
+    footer a { color: var(--gold); }
+
+    .stamp, .wasted {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 60;
+    }
+    .stamp b, .wasted b {
+      font-family: var(--font-w);
+      font-size: clamp(48px, 8vw, 92px);
+      border: 6px solid var(--mint);
+      color: var(--mint);
+      padding: 6px 18px;
+      transform: rotate(-12deg) scale(1.4);
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
+    .stamp.show { animation: stamp 1.1s ease forwards; }
+    .wasted { background: rgba(80, 0, 0, 0.28); }
+    .wasted b { border-color: var(--red); color: var(--red); letter-spacing: 4px; }
+    .wasted.show { animation: stamp 0.9s ease forwards; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.86);
+      z-index: 70;
+      display: none;
+      place-items: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: grid; }
+    .lightbox img { max-height: 86vh; max-width: 92vw; width: auto; box-shadow: var(--shadow); }
+    .lightbox button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--gold);
+      border: 0;
+      font-family: var(--font-d);
+      font-size: 22px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes flame {
+      0% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.7) translateY(3px); opacity: 0.7; }
+      100% { transform: scaleY(1.1); opacity: 1; }
+    }
+    @keyframes ken {
+      from { transform: scale(1); }
+      to { transform: scale(1.045); }
+    }
+    @keyframes tick {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes reel {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes fall {
+      to { transform: translateY(560px) rotate(220deg); opacity: 0.2; }
+    }
+    @keyframes siren {
+      0% { box-shadow: inset 18px 0 80px rgba(255, 40, 50, 0.45); }
+      50% { box-shadow: inset -18px 0 80px rgba(40, 90, 255, 0.5); }
+      100% { box-shadow: inset 18px 0 80px rgba(255, 40, 50, 0.45); }
+    }
+    @keyframes stamp {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes starpop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+    .stars svg.pop { animation: starpop 0.35s ease; }
+
+    @media (max-width: 900px) {
+      .menu-btn { display: block; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 0;
+        right: 0;
+        background: #0c0e14;
+        flex-direction: column;
+        padding: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      nav.open { display: flex; }
+      .score { display: none; }
+      .portrait { position: relative; right: auto; bottom: auto; margin: -70px auto 0; }
+      .splash { padding-bottom: 30px; }
+      .intro, .mission-layout, .stats, .steps, .foot { grid-template-columns: 1fr; display: grid; }
+      .foot { justify-items: start; }
+      .step { transform: none; }
+      .step > * { transform: none; }
+      .stage { min-height: 420px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan" aria-hidden="true"></div>
+
+  <div class="loader" id="loader">
+    <div class="loader-card">
+      <img src="logo.jpg" alt="Doge Pepe at the wheel of the flying roadster" />
+      <div class="loader-kicker">NOW LOADING</div>
+      <h1>DOPE <span>CITY</span></h1>
+      <p>ENTERING THE MOST WANTED RIDE</p>
+      <div class="bar" aria-hidden="true"><span id="loadbar"></span></div>
+      <div class="loader-meta"><span>SOLANA</span><span id="loadpct">0%</span></div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <img src="logo.jpg" alt="DOPESTER logo" />
+      <strong>DOPE<em>STER</em></strong>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false">MENU</button>
+    <nav id="nav">
+      <a href="#brief">BRIEF</a>
+      <a href="#missions">MISSIONS</a>
+      <a href="#stats">STATS</a>
+      <a href="#run">THE RUN</a>
+    </nav>
+    <div class="hud-right">
+      <button class="stars" id="stars" type="button" aria-label="Wanted level">
+        <svg viewBox="0 0 24 24"><path d="M12 2.6 14.7 9l6.8.6-5.2 4.4 1.6 6.6L12 17.8 6.1 20.6 7.7 14 2.5 9.6 9.3 9z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2.6 14.7 9l6.8.6-5.2 4.4 1.6 6.6L12 17.8 6.1 20.6 7.7 14 2.5 9.6 9.3 9z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2.6 14.7 9l6.8.6-5.2 4.4 1.6 6.6L12 17.8 6.1 20.6 7.7 14 2.5 9.6 9.3 9z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2.6 14.7 9l6.8.6-5.2 4.4 1.6 6.6L12 17.8 6.1 20.6 7.7 14 2.5 9.6 9.3 9z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2.6 14.7 9l6.8.6-5.2 4.4 1.6 6.6L12 17.8 6.1 20.6 7.7 14 2.5 9.6 9.3 9z"/></svg>
+      </button>
+      <div class="score"><small>SCORE</small><span id="score">000000</span></div>
+      <a class="xbtn" href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">X</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="splash" aria-label="Title splash">
+      <img class="splash-blur" src="banner.png" alt="" />
+      <div class="ribbon">MOST WANTED</div>
+      <img class="splash-main" src="banner.png" alt="Doge Pepe Roadster title art, flying car at sunset" />
+      <div class="portrait">
+        <img src="logo.jpg" alt="Doge Pepe driving the silver flying roadster" />
+        <div class="thrusters" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="pname">P1 <span>DOPESTER</span></div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>DOGESOON</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
+        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>DOGESOON</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
+      </div>
+    </div>
+
+    <section id="brief">
+      <div class="wrap intro">
+        <div class="panel">
+          <div class="kicker">CASE FILE 01</div>
+          <h2 class="lede">DOGE PEPE<br /><span>ROADSTER</span></h2>
+          <p class="copy">A doge with a frog face. A silver roadster with the brakes deleted. Blue thrusters over the freeway. Ticker is <b>$DOPESTER</b>. If the skyline sees you, you are already wanted.</p>
+          <div class="actions">
+            <button class="btn" id="copyMain" type="button">COPY CA</button>
+            <a class="btn alt" href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">FOLLOW ON X</a>
+          </div>
+          <div class="ca">
+            <div>
+              <span>CONTRACT</span><br />
+              <strong id="caText">dogesoon</strong>
+            </div>
+            <button class="mini-copy" id="copyMini" type="button">COPY</button>
+          </div>
+        </div>
+        <aside class="panel dossier">
+          <div class="kicker">DOSSIER</div>
+          <div class="row"><em>NAME</em><b>Doge Pepe Roadster</b></div>
+          <div class="row"><em>TICKER</em><b>$DOPESTER</b></div>
+          <div class="row"><em>CHAIN</em><b>Solana</b></div>
+          <div class="row"><em>STATUS</em><b>Most Wanted</b></div>
+          <div class="row"><em>CA</em><b>dogesoon</b></div>
+          <div class="row"><em>X</em><b><a href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">@DOPESTERSOL</a></b></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="missions">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <div class="sec-label">SELECT</div>
+            <h2>MISSIONS</h2>
+          </div>
+          <p>Five jobs. One flying car. Pick a scene or let the city cycle them.</p>
+        </div>
+        <div class="mission-layout">
+          <div class="stage" id="stage">
+            <img id="shot0" class="show" src="meme/chrome_NIAWj805uk.png" alt="Pepe and Doge cruising the beach at sunset" />
+            <img id="shot1" src="meme/chrome_hp0itBQWLH.png" alt="Pepe raining cash while Doge flies the roadster" />
+            <img id="shot2" src="meme/chrome_g4RaXaBHXl.png" alt="Night ride under a full moon" />
+            <img id="shot3" src="meme/chrome_UAbdy3R5V0.png" alt="Pepe and Doge watching the city from the hillside" />
+            <img id="shot4" src="meme/chrome_lSK54qHPYT.png" alt="Police chase under the palm trees" />
+            <div class="siren"></div>
+            <div class="bills" aria-hidden="true">
+              <i class="bill" style="left:8%;animation-delay:0s"></i>
+              <i class="bill" style="left:22%;animation-delay:.4s"></i>
+              <i class="bill" style="left:40%;animation-delay:.8s"></i>
+              <i class="bill" style="left:58%;animation-delay:.2s"></i>
+              <i class="bill" style="left:73%;animation-delay:1.1s"></i>
+              <i class="bill" style="left:88%;animation-delay:.6s"></i>
+            </div>
+            <div class="stage-shade"></div>
+            <div class="stage-copy">
+              <span class="code" id="mCode">MISSION 01</span>
+              <h3 id="mTitle">GOLDEN HOUR</h3>
+              <p id="mText">Top down. Sunglasses on. The freeway is a runway and the ocean is the finish line.</p>
+            </div>
+          </div>
+          <div class="mlist" id="mlist" role="tablist" aria-label="Missions">
+            <button class="mbtn active" type="button" data-i="0">
+              <img src="meme/chrome_NIAWj805uk.png" alt="" />
+              <span><small>01 · COAST</small><strong>GOLDEN HOUR</strong></span>
+            </button>
+            <button class="mbtn" type="button" data-i="1">
+              <img src="meme/chrome_hp0itBQWLH.png" alt="" />
+              <span><small>02 · HEIST</small><strong>PAYDAY</strong></span>
+            </button>
+            <button class="mbtn" type="button" data-i="2">
+              <img src="meme/chrome_g4RaXaBHXl.png" alt="" />
+              <span><small>03 · NIGHT</small><strong>MOONSHOT</strong></span>
+            </button>
+            <button class="mbtn" type="button" data-i="3">
+              <img src="meme/chrome_UAbdy3R5V0.png" alt="" />
+              <span><small>04 · VISTA</small><strong>THE VIEW</strong></span>
+            </button>
+            <button class="mbtn" type="button" data-i="4">
+              <img src="meme/chrome_lSK54qHPYT.png" alt="" />
+              <span><small>05 · HEAT</small><strong>FIVE STARS</strong></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip" aria-label="Meme reel">
+      <div class="strip-track" id="reel"></div>
+    </div>
+
+    <section id="stats">
+      <div class="wrap stats">
+        <img class="stats-photo" src="logo.jpg" alt="Player portrait of the roadster pilot" />
+        <div>
+          <div class="sec-label">PLAYER</div>
+          <h2 style="font-family:var(--font-d);font-weight:400;font-size:clamp(36px,5vw,58px);margin:8px 0 16px;">STREET CRED</h2>
+          <div class="meter"><div>BOOST <span>98</span></div><div class="track"><span data-w="98"></span></div></div>
+          <div class="meter"><div>DRIFT <span>95</span></div><div class="track"><span data-w="95"></span></div></div>
+          <div class="meter"><div>MEME POWER <span>100</span></div><div class="track"><span data-w="100"></span></div></div>
+          <div class="meter"><div>STEALTH <span>12</span></div><div class="track low"><span data-w="12"></span></div></div>
+          <div class="meter"><div>RESPECT <span>99</span></div><div class="track"><span data-w="99"></span></div></div>
+          <p class="copy" style="margin-top:8px;">Joke meters for the pilot. The only number that matters on-chain is the contract: <b>dogesoon</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="run">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <div class="sec-label">START</div>
+            <h2>THE RUN</h2>
+          </div>
+          <p>Four steps. Then the thrusters. Nothing here is financial advice.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><div class="n">01</div><h3>GEAR UP</h3><p>Install a Solana wallet. Phantom or Solflare will do.</p></article>
+          <article class="step"><div class="n">02</div><h3>LOAD SOL</h3><p>Fund the wallet. The roadster does not run on empty.</p></article>
+          <article class="step"><div class="n">03</div><h3>PUNCH CA</h3><p>Copy <b>dogesoon</b> and use it when the pair is live.</p></article>
+          <article class="step"><div class="n">04</div><h3>FLOOR IT</h3><p>Follow <a href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">@DOPESTERSOL</a> for the drop.</p></article>
+        </div>
+        <div class="radio">
+          <span>DOPE FM 104.2 &nbsp;·&nbsp; NOW PLAYING: THRUSTER SUMMER</span>
+          <div class="boost"><span id="mph">214</span><small>MPH</small></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div style="display:flex;gap:14px;align-items:center;">
+        <img src="logo.jpg" alt="" />
+        <div>
+          <strong style="color:var(--ink);font-family:var(--font-d);font-size:28px;letter-spacing:1px;font-weight:400;">$DOPESTER</strong>
+          <div>Doge Pepe Roadster · Solana · CA dogesoon</div>
+        </div>
+      </div>
+      <div>
+        <a href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">x.com/DOPESTERSOL</a>
+        <p style="max-width:360px;font-size:13px;">A memecoin fan page with a game HUD. Not an official game studio site. Not financial advice. Do your own research.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="stamp" id="stamp" aria-hidden="true"><b>MISSION PASSED</b></div>
+  <div class="wasted" id="wasted" aria-hidden="true"><b>WASTED</b></div>
+  <div class="lightbox" id="lightbox">
+    <button type="button" id="closeLight">CLOSE</button>
+    <img id="lightImg" alt="" />
+  </div>
+
+  <script>
+    const CA = "dogesoon";
+    const missions = [
+      { code: "MISSION 01", title: "GOLDEN HOUR", text: "Top down. Sunglasses on. The freeway is a runway and the ocean is the finish line.", theme: "" },
+      { code: "MISSION 02", title: "PAYDAY", text: "Pepe makes it rain. The helicopter can watch. The city is the vault.", theme: "payday" },
+      { code: "MISSION 03", title: "MOONSHOT", text: "After dark the thrusters stay lit. Full moon. No map. Still sending it.", theme: "" },
+      { code: "MISSION 04", title: "THE VIEW", text: "Park above the skyline. Count the lights. Leave before the sirens climb the hill.", theme: "" },
+      { code: "MISSION 05", title: "FIVE STARS", text: "Every unit in the city is behind you. Wave. Do not stop. The stars are the point.", theme: "chase" }
+    ];
+
+    const loader = document.getElementById("loader");
+    const loadbar = document.getElementById("loadbar");
+    const loadpct = document.getElementById("loadpct");
+    let progress = 0;
+    const loadTimer = setInterval(() => {
+      progress = Math.min(100, progress + Math.random() * 9 + 3);
+      loadbar.style.width = progress + "%";
+      loadpct.textContent = Math.floor(progress) + "%";
+      if (progress >= 100) {
+        clearInterval(loadTimer);
+        setTimeout(() => loader.classList.add("hide"), 280);
+      }
+    }, 70);
+    loader.addEventListener("click", () => {
+      clearInterval(loadTimer);
+      loader.classList.add("hide");
+    });
+
+    const starNodes = document.querySelectorAll("#stars svg");
+    starNodes.forEach((node, i) => {
+      setTimeout(() => {
+        node.classList.add("on", "pop");
+      }, 700 + i * 180);
+    });
+    document.getElementById("stars").addEventListener("click", () => {
+      const wasted = document.getElementById("wasted");
+      wasted.classList.remove("show");
+      void wasted.offsetWidth;
+      wasted.classList.add("show");
+    });
+
+    let score = 42069;
+    const scoreEl = document.getElementById("score");
+    setInterval(() => {
+      score += Math.floor(Math.random() * 37) + 1;
+      scoreEl.textContent = String(score).padStart(6, "0");
+    }, 900);
+
+    const mph = document.getElementById("mph");
+    setInterval(() => {
+      mph.textContent = 188 + Math.floor(Math.random() * 46);
+    }, 220);
+
+    function flashStamp() {
+      const stamp = document.getElementById("stamp");
+      stamp.classList.remove("show");
+      void stamp.offsetWidth;
+      stamp.classList.add("show");
+    }
+    async function copyCa() {
+      try {
+        await navigator.clipboard.writeText(CA);
+      } catch (err) {
+        const area = document.createElement("textarea");
+        area.value = CA;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      flashStamp();
+    }
+    document.getElementById("copyMain").addEventListener("click", copyCa);
+    document.getElementById("copyMini").addEventListener("click", copyCa);
+
+    const stage = document.getElementById("stage");
+    const shots = [...stage.querySelectorAll("img")];
+    const buttons = [...document.querySelectorAll(".mbtn")];
+    let current = 0;
+    let timer;
+    function showMission(i) {
+      current = i;
+      shots.forEach((img, n) => img.classList.toggle("show", n === i));
+      buttons.forEach((btn, n) => {
+        btn.classList.toggle("active", n === i);
+        btn.setAttribute("aria-selected", n === i ? "true" : "false");
+      });
+      const m = missions[i];
+      document.getElementById("mCode").textContent = m.code;
+      document.getElementById("mTitle").textContent = m.title;
+      document.getElementById("mText").textContent = m.text;
+      stage.classList.remove("payday", "chase");
+      if (m.theme) stage.classList.add(m.theme);
+    }
+    function arm() {
+      clearInterval(timer);
+      timer = setInterval(() => showMission((current + 1) % missions.length), 4200);
+    }
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        showMission(Number(btn.dataset.i));
+        arm();
+      });
+    });
+    stage.addEventListener("mouseenter", () => clearInterval(timer));
+    stage.addEventListener("mouseleave", arm);
+    arm();
+
+    const reel = document.getElementById("reel");
+    const sources = [
+      ["meme/chrome_NIAWj805uk.png", "Golden hour cruise"],
+      ["meme/chrome_hp0itBQWLH.png", "Payday over the city"],
+      ["meme/chrome_g4RaXaBHXl.png", "Moonshot night ride"],
+      ["meme/chrome_UAbdy3R5V0.png", "Hillside view"],
+      ["meme/chrome_lSK54qHPYT.png", "Five star chase"]
+    ];
+    [...sources, ...sources].forEach(([src, alt]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.innerHTML = `<img src="${src}" alt="${alt}" />`;
+      b.addEventListener("click", () => openLight(src, alt));
+      reel.appendChild(b);
+    });
+    shots.forEach((img) => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", () => openLight(img.src, img.alt));
+    });
+    const lightbox = document.getElementById("lightbox");
+    function openLight(src, alt) {
+      document.getElementById("lightImg").src = src;
+      document.getElementById("lightImg").alt = alt;
+      lightbox.classList.add("open");
+    }
+    document.getElementById("closeLight").addEventListener("click", () => lightbox.classList.remove("open"));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("open");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") lightbox.classList.remove("open");
+      if (e.key === "ArrowRight") { showMission((current + 1) % missions.length); arm(); }
+      if (e.key === "ArrowLeft") { showMission((current + missions.length - 1) % missions.length); arm(); }
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll(".track span").forEach((bar) => {
+          bar.style.width = bar.dataset.w + "%";
+        });
+      });
+    }, { threshold: 0.4 });
+    io.observe(document.getElementById("stats"));
+
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+    menuBtn.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }));
+  </script>
+</body>
+</html>
