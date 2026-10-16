@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Doge Pepe Roadster — $DOPESTER</title>
-  <meta name="description" content="Doge Pepe Roadster ($DOPESTER) is the most wanted ride on Solana. Contract: dogesoon." />
+  <meta name="description" content="Doge Pepe Roadster ($DOPESTER) is the most wanted ride on Solana. Contract: 5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump." />
   <meta name="theme-color" content="#07080c" />
   <meta property="og:title" content="Doge Pepe Roadster — $DOPESTER" />
   <meta property="og:description" content="Two legends. One flying roadster. The most wanted memecoin on Solana." />
@@ -296,7 +296,14 @@
       font-size: 22px;
     }
     .ticker b { color: var(--gold); font-weight: 400; }
-    .ticker em { color: var(--green); font-style: normal; }
+    .ticker em {
+      color: var(--green);
+      font-style: normal;
+      font-family: var(--font-b);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+    }
 
     .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
     section { padding: 72px 0; }
@@ -388,13 +395,17 @@
       border: 1px dashed rgba(182, 255, 74, 0.45);
       padding: 10px 12px;
     }
+    .ca > div { min-width: 0; flex: 1; }
     .ca span { color: var(--muted); letter-spacing: 0.18em; font-size: 12px; }
     .ca strong {
-      font-family: var(--font-d);
-      font-size: 28px;
-      letter-spacing: 2px;
+      display: block;
+      font-family: var(--font-b);
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      line-height: 1.35;
       color: var(--green);
-      font-weight: 400;
+      font-weight: 700;
+      overflow-wrap: anywhere;
     }
     .mini-copy {
       margin-left: auto;
@@ -419,6 +430,14 @@
     }
     .row em { color: var(--muted); font-style: normal; letter-spacing: 0.14em; font-size: 12px; }
     .row b { font-weight: 700; }
+    .row b.addr {
+      font-size: 13px;
+      font-weight: 600;
+      text-align: right;
+      line-height: 1.3;
+      max-width: 78%;
+      overflow-wrap: anywhere;
+    }
 
     .mission-layout {
       display: grid;
@@ -588,7 +607,10 @@
       gap: 18px;
       align-items: center;
     }
-    .foot img { width: 64px; height: 64px; object-fit: cover; border: 2px solid var(--gold); }
+    .foot img { width: 64px; height: 64px; object-fit: cover; border: 2px solid var(--gold); flex: none; }
+    .foot > div:first-child,
+    .foot > div:first-child > div { min-width: 0; }
+    .foot > div:first-child > div { overflow-wrap: anywhere; }
     footer a { color: var(--gold); }
 
     .stamp, .wasted {
@@ -763,8 +785,8 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>DOGESOON</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
-        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>DOGESOON</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
+        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
+        <span>DOGE PEPE ROADSTER &nbsp;•&nbsp; <b>$DOPESTER</b> &nbsp;•&nbsp; SOLANA &nbsp;•&nbsp; CA <em>5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</em> &nbsp;•&nbsp; 5 STAR WANTED &nbsp;•&nbsp; FLOOR IT &nbsp;•&nbsp; </span>
       </div>
     </div>
 
@@ -781,7 +803,7 @@
           <div class="ca">
             <div>
               <span>CONTRACT</span><br />
-              <strong id="caText">dogesoon</strong>
+              <strong id="caText">5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</strong>
             </div>
             <button class="mini-copy" id="copyMini" type="button">COPY</button>
           </div>
@@ -792,7 +814,7 @@
           <div class="row"><em>TICKER</em><b>$DOPESTER</b></div>
           <div class="row"><em>CHAIN</em><b>Solana</b></div>
           <div class="row"><em>STATUS</em><b>Most Wanted</b></div>
-          <div class="row"><em>CA</em><b>dogesoon</b></div>
+          <div class="row"><em>CA</em><b class="addr">5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</b></div>
           <div class="row"><em>X</em><b><a href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">@DOPESTERSOL</a></b></div>
         </aside>
       </div>
@@ -871,7 +893,7 @@
           <div class="meter"><div>MEME POWER <span>100</span></div><div class="track"><span data-w="100"></span></div></div>
           <div class="meter"><div>STEALTH <span>12</span></div><div class="track low"><span data-w="12"></span></div></div>
           <div class="meter"><div>RESPECT <span>99</span></div><div class="track"><span data-w="99"></span></div></div>
-          <p class="copy" style="margin-top:8px;">Joke meters for the pilot. The only number that matters on-chain is the contract: <b>dogesoon</b>.</p>
+          <p class="copy" style="margin-top:8px;">Joke meters for the pilot. The only number that matters on-chain is the contract: <b>5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</b>.</p>
         </div>
       </div>
     </section>
@@ -888,7 +910,7 @@
         <div class="steps">
           <article class="step"><div class="n">01</div><h3>GEAR UP</h3><p>Install a Solana wallet. Phantom or Solflare will do.</p></article>
           <article class="step"><div class="n">02</div><h3>LOAD SOL</h3><p>Fund the wallet. The roadster does not run on empty.</p></article>
-          <article class="step"><div class="n">03</div><h3>PUNCH CA</h3><p>Copy <b>dogesoon</b> and use it when the pair is live.</p></article>
+          <article class="step"><div class="n">03</div><h3>PUNCH CA</h3><p>Copy <b>5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</b> and use it when the pair is live.</p></article>
           <article class="step"><div class="n">04</div><h3>FLOOR IT</h3><p>Follow <a href="https://x.com/DOPESTERSOL" target="_blank" rel="noopener noreferrer">@DOPESTERSOL</a> for the drop.</p></article>
         </div>
         <div class="radio">
@@ -905,7 +927,7 @@
         <img src="logo.jpg" alt="" />
         <div>
           <strong style="color:var(--ink);font-family:var(--font-d);font-size:28px;letter-spacing:1px;font-weight:400;">$DOPESTER</strong>
-          <div>Doge Pepe Roadster · Solana · CA dogesoon</div>
+          <div>Doge Pepe Roadster · Solana · CA 5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump</div>
         </div>
       </div>
       <div>
@@ -923,7 +945,7 @@
   </div>
 
   <script>
-    const CA = "dogesoon";
+    const CA = "5k2utd3WLwfYoXmvReuwjxRdZnf8My5EN7G8SFBMpump";
     const missions = [
       { code: "MISSION 01", title: "GOLDEN HOUR", text: "Top down. Sunglasses on. The freeway is a runway and the ocean is the finish line.", theme: "" },
       { code: "MISSION 02", title: "PAYDAY", text: "Pepe makes it rain. The helicopter can watch. The city is the vault.", theme: "payday" },
